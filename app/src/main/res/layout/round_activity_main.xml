@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context="com.metalaxe.mystopwatch.MainActivity"
+    tools:deviceIds="wear_round">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36sp"
+        android:text="@string/app_name"
+        android:textColor="#00FF00"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/stopwatch_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text"
+        android:layout_centerHorizontal="true"
+        android:text="00:00:00.00"
+        android:textColor="#FF0000"
+        android:textSize="48sp" />
+
+    <TextView
+        android:id="@+id/display_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stopwatch_display"
+        android:layout_marginLeft="30sp"
+        android:layout_marginTop="-12sp"
+        android:text="H"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/display_mins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stopwatch_display"
+        android:layout_toRightOf="@+id/display_hours"
+        android:layout_marginLeft="45sp"
+        android:layout_marginTop="-12sp"
+        android:text="M"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/display_secs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stopwatch_display"
+        android:layout_toRightOf="@+id/display_mins"
+        android:layout_marginLeft="45sp"
+        android:layout_marginTop="-12sp"
+        android:text="S"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/start_stop_button"
+        android:layout_width="120sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stopwatch_display"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8sp"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="START"
+        android:drawableLeft="@android:drawable/ic_media_play"
+        android:textColor="#00FF00"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="20sp"
+        android:layout_below="@+id/start_stop_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4sp"
+        android:background="?android:attr/selectableItemBackground"
+        android:drawableLeft="@android:drawable/ic_menu_revert"
+        android:text="Reset"
+        android:textColor="#FFF200" />
+</RelativeLayout>
+

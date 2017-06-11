@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context="com.metalaxe.mystopwatch.ResetActivity"
+    tools:deviceIds="wear">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#FFF200"
+            android:textSize="18sp"
+            android:layout_marginTop="20sp"
+            android:text="Reseting Stopwatch!"/>
+
+        <android.support.wearable.view.DelayedConfirmationView
+            android:layout_gravity="center"
+            android:id="@+id/delayed_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:src="@drawable/ic_close_white"
+            app:circle_border_color="#FF0000"
+            app:circle_border_width="12dp"
+            app:circle_color="#FFFFFF"
+            app:circle_radius="64dp" />
+    </LinearLayout>
+
+</android.support.wearable.view.BoxInsetLayout>
