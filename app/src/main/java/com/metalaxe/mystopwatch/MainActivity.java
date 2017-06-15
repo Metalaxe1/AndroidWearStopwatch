@@ -16,9 +16,11 @@ public class MainActivity extends WearableActivity {
 
     private TextView mAppName;
     private TextView mStopwatchView;
+    private TextView mTime;
     private Button mStartStopButton;
     private Button mResetButton;
     private StopWatch stopWatch;
+    private Clock clock;
 
 
     @Override
@@ -28,6 +30,7 @@ public class MainActivity extends WearableActivity {
         //getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setAmbientEnabled();
         mAppName = (TextView) findViewById(R.id.text);
+        mTime = (TextView) findViewById(R.id.time);
         mStopwatchView = (TextView) findViewById(R.id.stopwatch_display);
         mStartStopButton = (Button) findViewById(R.id.start_stop_button);
         mResetButton = (Button) findViewById(R.id.reset_button);
@@ -44,6 +47,7 @@ public class MainActivity extends WearableActivity {
         mStartStopButton = (Button) findViewById(R.id.start_stop_button);
         mResetButton = (Button) findViewById(R.id.reset_button);
         this.stopWatch = new StopWatch(mStopwatchView);
+        this.clock = new Clock(mTime);
         mStopwatchView.setTextColor(Color.RED);
         mStartStopButton.setOnClickListener(new View.OnClickListener(){
 
@@ -88,10 +92,12 @@ public class MainActivity extends WearableActivity {
         mResetButton.setVisibility(View.GONE);
         mStopwatchView.setTextColor(Color.WHITE);
         mAppName.setTextColor(Color.WHITE);
+        mTime.setTextColor(Color.WHITE);
     }
 
     @Override
     public void onExitAmbient() {
+        mTime.setTextColor(Color.YELLOW);
         mAppName.setTextColor(Color.GREEN);
         mStartStopButton.setVisibility(View.VISIBLE);
         if (stopWatch.isRunning()){
@@ -112,4 +118,6 @@ public class MainActivity extends WearableActivity {
             mResetButton.setVisibility(View.GONE);
         }
     }
+
+
 }

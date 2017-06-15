@@ -2,14 +2,12 @@ package com.metalaxe.mystopwatch;
 
 import android.os.Handler;
 import android.widget.TextView;
-import java.util.Timer;
 
 public class StopWatch{
     // Private class fields
     private final TextView timerDisplay;
     private long timer;
     private long offset;
-    private Timer SimpleTimer;
     private boolean started;
     final Handler timerHandler;
     final Runnable timerRunnable;
@@ -21,7 +19,6 @@ public class StopWatch{
         this.offset = 0;
         this.started = false;
 
-        //runs without a timer by reposting this handler at the end of the runnable
         this.timerHandler = new Handler();
         this.timerRunnable = new Runnable() {
 
@@ -33,7 +30,6 @@ public class StopWatch{
                 int mins = (int)(((timer/1000)/60)%60);
                 int hours = (int)((timer/1000)/3600);
                 timerDisplay.setText(String.format("%1$02d:%2$02d:%3$02d.%4$02d", hours, mins, secs, millis));
-
                 timerHandler.postDelayed(this, 10);
             }
         };
@@ -81,5 +77,4 @@ public class StopWatch{
     public boolean isRunning(){
         return this.started;
     }
-    
 }

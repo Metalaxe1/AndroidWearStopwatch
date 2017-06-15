@@ -22,11 +22,11 @@ public class Clock {
 
             @Override
             public void run() {
-                String timeStamp = new SimpleDateFormat("hh.mm.ss a").format(new java.util.Date());
+                String timeStamp = new SimpleDateFormat("hh.mm a").format(new java.util.Date());
                 timeDisplay.setText(timeStamp);
-                timerHandler.postDelayed(this, 1000);
+                timerHandler.postDelayed(this, 30000);
             }
         };
-        timerHandler.postDelayed(timerRunnable, 1000);
+        timerHandler.post(timerRunnable);
     }
 }
