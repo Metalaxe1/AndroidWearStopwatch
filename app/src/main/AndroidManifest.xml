@@ -26,11 +26,6 @@
             android:name=".ResetActivity"
             android:label="@string/title_activity_reset"
             android:theme="@android:style/Theme.DeviceDefault.Light">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
     </application>
