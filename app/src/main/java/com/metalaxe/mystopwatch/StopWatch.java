@@ -9,8 +9,8 @@ public class StopWatch{
     private long timer;
     private long offset;
     private boolean started;
-    final Handler timerHandler;
-    final Runnable timerRunnable;
+    private final Handler timerHandler;
+    private final Runnable timerRunnable;
     
     // Class constructor
     public StopWatch(TextView temp){
@@ -25,12 +25,12 @@ public class StopWatch{
             @Override
             public void run() {
                 timer = System.currentTimeMillis() - offset;
-                int millis = (int)(timer%100);
+                int millis = (int)(timer%1000)/10;
                 int secs = (int)((timer/1000)%60);
                 int mins = (int)(((timer/1000)/60)%60);
                 int hours = (int)((timer/1000)/3600);
                 timerDisplay.setText(String.format("%1$02d:%2$02d:%3$02d.%4$02d", hours, mins, secs, millis));
-                timerHandler.postDelayed(this, 10);
+                timerHandler.post(this);
             }
         };
     }
@@ -41,7 +41,7 @@ public class StopWatch{
     public boolean start(){
         if (started) return false;
         this.offset = System.currentTimeMillis();
-        timerHandler.postDelayed(timerRunnable, 10);
+        timerHandler.post(timerRunnable);
         started = true;
         return true;
         }
@@ -49,7 +49,7 @@ public class StopWatch{
     public boolean resume(){
         if (started || this.getTimerMilliseconds() == 0) return false;
         this.offset = System.currentTimeMillis() - this.timer;
-        timerHandler.postDelayed(timerRunnable, 10);
+        timerHandler.post(timerRunnable);
         started = true;
         return true;
     }
