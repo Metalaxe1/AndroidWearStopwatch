@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">Tony\'s Stopwatch</string>
+    <string name="app_name">Droid Stopper</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
     <string name="title_activity_reset">ResetActivity</string>
+    <string name="start">START</string>
+    <string name="reset">Reset</string>
+    <string name="s">S</string>
+    <string name="m">M</string>
+    <string name="h">H</string>
+    <string name="zero_display">00:00:00.00</string>
 </resources>
