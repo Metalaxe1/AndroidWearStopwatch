@@ -7,6 +7,12 @@
     tools:context="com.metalaxe.mystopwatch.MainActivity"
     tools:deviceIds="wear_round">
 
+    <com.metalaxe.mystopwatch.CanvasView
+        android:id="@+id/signature_canvas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#FFFFFF" />
+
     <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
