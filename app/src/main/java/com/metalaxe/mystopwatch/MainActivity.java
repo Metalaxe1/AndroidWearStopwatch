@@ -10,8 +10,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.List;
-
 public class MainActivity extends WearableActivity {
 
     private TextView mAppName;
@@ -52,18 +50,18 @@ public class MainActivity extends WearableActivity {
         customCanvas.setStopWatch(this.stopWatch);
         this.clock = new Clock(mTime);
         mStopwatchView.setTextColor(Color.RED);
-        mStartStopButton.setOnClickListener(new View.OnClickListener(){
+        mStartStopButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                if (mStartStopButton.getText().toString().equals("START")){
+                if (mStartStopButton.getText().toString().equals("START")) {
                     mStartStopButton.setTextColor(Color.RED);
                     mStopwatchView.setTextColor(Color.YELLOW);
                     mStartStopButton.setText("STOP ");
 
                     mStartStopButton.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_pause, 0, 0, 0);
                     mResetButton.setVisibility(View.GONE);
-                    if (stopWatch.getTimerMilliseconds() == 0){
+                    if (stopWatch.getTimerMilliseconds() == 0) {
                         stopWatch.start();
                     } else {
                         stopWatch.resume();
@@ -85,7 +83,6 @@ public class MainActivity extends WearableActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ResetActivity.class);
                 startActivityForResult(intent, 1001);
-
             }
         });
     }
@@ -109,11 +106,11 @@ public class MainActivity extends WearableActivity {
         mStartStopButton.setVisibility(View.VISIBLE);
         customCanvas.setSpinnerColor(Color.RED);
         customCanvas.showBorderCircle(true);
-        if (stopWatch.isRunning()){
+        if (stopWatch.isRunning()) {
             mStopwatchView.setTextColor(Color.YELLOW);
         } else {
             mStopwatchView.setTextColor(Color.RED);
-            if (stopWatch.getTimerMilliseconds() != 0){
+            if (stopWatch.getTimerMilliseconds() != 0) {
                 mResetButton.setVisibility(View.VISIBLE);
             }
         }
@@ -122,7 +119,7 @@ public class MainActivity extends WearableActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1001 && resultCode == RESULT_OK){
+        if (requestCode == 1001 && resultCode == RESULT_OK) {
             stopWatch.reset();
             customCanvas.resetSpinner();
             mResetButton.setVisibility(View.GONE);

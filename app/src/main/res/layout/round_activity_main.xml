@@ -38,18 +38,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/text"
         android:layout_centerHorizontal="true"
-        android:text="00:00:00.00"
+        android:text="@string/zero_display"
         android:textColor="#FF0000"
-        android:textSize="48sp" />
+        android:textSize="42sp" />
 
     <TextView
         android:id="@+id/display_hours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/stopwatch_display"
-        android:layout_marginLeft="30sp"
-        android:layout_marginTop="-12sp"
-        android:text="H"
+        android:layout_alignLeft="@+id/stopwatch_display"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="-12dp"
+        android:text="@string/h"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
 
@@ -58,10 +59,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/stopwatch_display"
+        android:layout_alignLeft="@+id/stopwatch_display"
         android:layout_toRightOf="@+id/display_hours"
-        android:layout_marginLeft="45sp"
-        android:layout_marginTop="-12sp"
-        android:text="M"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="-12dp"
+        android:text="@string/m"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
 
@@ -70,10 +72,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/stopwatch_display"
+        android:layout_alignLeft="@+id/stopwatch_display"
         android:layout_toRightOf="@+id/display_mins"
-        android:layout_marginLeft="45sp"
-        android:layout_marginTop="-12sp"
-        android:text="S"
+        android:layout_marginLeft="132dp"
+        android:layout_marginTop="-12dp"
+        android:text="@string/s"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
 
@@ -85,7 +88,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8sp"
         android:background="?android:attr/selectableItemBackground"
-        android:text="START"
+        android:text="@string/start"
         android:drawableLeft="@android:drawable/ic_media_play"
         android:textColor="#00FF00"
         android:textSize="24sp" />
@@ -99,7 +102,7 @@
         android:layout_marginTop="4sp"
         android:background="?android:attr/selectableItemBackground"
         android:drawableLeft="@android:drawable/ic_menu_revert"
-        android:text="Reset"
+        android:text="@string/reset"
         android:textColor="#FFF200" />
 </RelativeLayout>
 
