@@ -1,12 +1,17 @@
 <resources>
-    <string name="app_name">Droid Stopper</string>
+    <string name="app_name">Chrono-Droid</string>
+    <string name="stop_watch">Stopwatch</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
-    <string name="title_activity_reset">ResetActivity</string>
+    <string name="title_activity_reset">Reset Stopwatch</string>
     <string name="start">START</string>
     <string name="reset">Reset</string>
     <string name="s">S</string>
     <string name="m">M</string>
     <string name="h">H</string>
     <string name="zero_display">00:00:00.00</string>
+    <string name="zero_display_hours">00</string>
+    <string name="zero_display_minuits">:00</string>
+    <string name="zero_display_seconds">:00.</string>
+    <string name="zero_display_millis">.00</string>
 </resources>
