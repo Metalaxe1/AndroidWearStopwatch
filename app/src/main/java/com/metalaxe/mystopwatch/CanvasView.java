@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class CanvasView extends View {
 
     private double radius = 8;
-    private double currentDegrees;
+    private double currentDegrees, trailingDegrees;
     private int centerX, centerY;
     private Handler handler;
     private AtomicBoolean running;
@@ -27,7 +27,7 @@ public class CanvasView extends View {
         handler = new Handler();
         stopWatch = null;
         currentDegrees = -90;
-        spinnerColor = Color.RED;
+        spinnerColor = Color.GREEN;
         borderColor = Color.WHITE;
         running = new AtomicBoolean(false);
         firstStart = true;
@@ -76,18 +76,26 @@ public class CanvasView extends View {
         canvas.drawCircle((int) (centerX), (int) (centerY), (float) centerX - 8, outer_circle);
 
         // Create and draw the spinner back fill.
+        if (running.get()) {
+            trailingDegrees = currentDegrees - 30;
+            spinnerColor = Color.GREEN;
+        }
+        else {
+            trailingDegrees = currentDegrees;
+            spinnerColor = Color.RED;
+        }
         Paint spinner_fill = new Paint();
         spinner_fill.setAntiAlias(true);
         spinner_fill.setColor(spinnerColor);
         spinner_fill.setStyle(Paint.Style.FILL);
         spinner_fill.setStrokeJoin(Paint.Join.ROUND);
-        double looper = -90.0;
-        while (looper <= currentDegrees) {
-            double radians = (Math.toRadians(looper));
+
+        while (trailingDegrees <= currentDegrees) {
+            double radians = (Math.toRadians(trailingDegrees));
             double xFill = ((centerX - 8) * Math.cos(radians) + centerX);
             double yFill = ((centerX - 8) * Math.sin(radians) + centerY);
             canvas.drawCircle((float) xFill, (float) yFill, (float) radius, spinner_fill);
-            looper++;
+            trailingDegrees++;
         }
 
         // If the stopwatch is running, then continue to redraw with updates.

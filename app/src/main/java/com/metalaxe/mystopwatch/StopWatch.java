@@ -1,11 +1,15 @@
 package com.metalaxe.mystopwatch;
 
 import android.os.Handler;
+import android.view.View;
 import android.widget.TextView;
 
 public class StopWatch{
     // Private class fields
-    private final TextView timerDisplay;
+    private final TextView hourDisplay;
+    private final TextView minuteDisplay;
+    private final TextView secondDisplay;
+    private final TextView milliDisplay;
     private long timer;
     private long offset;
     private boolean started;
@@ -13,8 +17,11 @@ public class StopWatch{
     private final Runnable timerRunnable;
     
     // Class constructor
-    public StopWatch(TextView temp){
-        this.timerDisplay = temp;
+    public StopWatch(TextView hour, TextView min, TextView secs, TextView millis){
+        this.hourDisplay = hour;
+        this.minuteDisplay = min;
+        this.secondDisplay = secs;
+        this.milliDisplay = millis;
         this.timer = 0;
         this.offset = 0;
         this.started = false;
@@ -29,7 +36,16 @@ public class StopWatch{
                 int secs = (int)((timer/1000)%60);
                 int mins = (int)(((timer/1000)/60)%60);
                 int hours = (int)((timer/1000)/3600);
-                timerDisplay.setText(String.format("%1$02d:%2$02d:%3$02d.%4$02d", hours, mins, secs, millis));
+                if (hours == 0) {
+                    hourDisplay.setVisibility(View.GONE);
+                } else hourDisplay.setVisibility(View.VISIBLE);
+                if (mins == 0) {
+                    minuteDisplay.setVisibility(View.GONE);
+                } else minuteDisplay.setVisibility(View.VISIBLE);
+                hourDisplay.setText(String.format("%1$02d:", hours));
+                minuteDisplay.setText(String.format("%1$02d:", mins));
+                secondDisplay.setText(String.format("%1$02d.", secs));
+                milliDisplay.setText(String.format("%1$02d", millis));
                 timerHandler.post(this);
             }
         };
@@ -70,7 +86,12 @@ public class StopWatch{
         this.timer = 0;
         this.offset = 0;
         this.started = false;
-        this.timerDisplay.setText("00:00:00.00");
+        hourDisplay.setText(String.format("00:"));
+        hourDisplay.setVisibility(View.GONE);
+        minuteDisplay.setText(String.format("00:"));
+        minuteDisplay.setVisibility(View.GONE);
+        secondDisplay.setText(String.format("00."));
+        milliDisplay.setText(String.format("00"));
         return true;
     }
 
