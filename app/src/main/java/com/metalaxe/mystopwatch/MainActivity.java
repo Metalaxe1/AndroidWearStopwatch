@@ -2,9 +2,11 @@ package com.metalaxe.mystopwatch;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.wearable.activity.WearableActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,8 +22,9 @@ public class MainActivity extends WearableActivity {
     private TextView mTime;
     private Button mStartStopButton;
     private Button mResetButton;
-    private static StopWatch stopWatch;
+    private StopWatch stopWatch;
     private Clock clock;
+    private View backgroundView;
     private CanvasView customCanvas;
 
 
@@ -39,6 +42,19 @@ public class MainActivity extends WearableActivity {
         mMilliView = (TextView) findViewById(R.id.stopwatch_display_millis);
         mStartStopButton = (Button) findViewById(R.id.start_stop_button);
         mResetButton = (Button) findViewById(R.id.reset_button);
+        backgroundView = (View) this.findViewById(android.R.id.content);
+        backgroundView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN && event.getY() < v.getHeight()*.5) {
+                    mStartStopButton.performClick();
+                } else if (mResetButton.getVisibility() == View.VISIBLE && event.getAction() == MotionEvent.ACTION_DOWN && event.getY() > v.getHeight()*.5){
+                    mResetButton.performClick();
+                }
+                return false;
+            }
+
+        });
         //final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         /* stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -54,47 +70,7 @@ public class MainActivity extends WearableActivity {
         this.stopWatch = new StopWatch(mHourView, mMinuteView, mSecondView, mMilliView);
         customCanvas.setStopWatch(this.stopWatch);
         this.clock = new Clock(mTime);
-        mStartStopButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                if (mStartStopButton.getText().toString().equals("START")){
-                    mStartStopButton.setTextColor(Color.RED);
-                    mHourView.setTextColor(Color.GREEN);
-                    mMinuteView.setTextColor(Color.GREEN);
-                    mSecondView.setTextColor(Color.GREEN);
-                    mMilliView.setTextColor(Color.GREEN);
-                    mStartStopButton.setText("STOP ");
-
-                    mStartStopButton.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_pause, 0, 0, 0);
-                    mResetButton.setVisibility(View.GONE);
-                    if (stopWatch.getTimerMilliseconds() == 0){
-                        stopWatch.start();
-                    } else {
-                        stopWatch.resume();
-                    }
-                } else {
-                    mStartStopButton.setText("START");
-                    mStartStopButton.setTextColor(Color.GREEN);
-                    mHourView.setTextColor(Color.RED);
-                    mMinuteView.setTextColor(Color.RED);
-                    mSecondView.setTextColor(Color.RED);
-                    mMilliView.setTextColor(Color.RED);
-                    mStartStopButton.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_play, 0, 0, 0);
-                    mResetButton.setVisibility(View.VISIBLE);
-                    stopWatch.stop();
-                }
-                customCanvas.animation();
-            }
-        });
         mResetButton.setVisibility(View.GONE);
-        mResetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ResetActivity.class);
-                startActivityForResult(intent, 1001);
-            }
-        });
     }
 
     @Override
@@ -145,5 +121,38 @@ public class MainActivity extends WearableActivity {
         }
     }
 
+    public void toggleStartStop(View view){
+        if (mStartStopButton.getText().toString().equals("START")){
+            mStartStopButton.setTextColor(Color.RED);
+            mHourView.setTextColor(Color.GREEN);
+            mMinuteView.setTextColor(Color.GREEN);
+            mSecondView.setTextColor(Color.GREEN);
+            mMilliView.setTextColor(Color.GREEN);
+            mStartStopButton.setText("STOP ");
 
+            mStartStopButton.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_pause, 0, 0, 0);
+            mResetButton.setVisibility(View.GONE);
+            if (stopWatch.getTimerMilliseconds() == 0){
+                stopWatch.start();
+            } else {
+                stopWatch.resume();
+            }
+        } else {
+            mStartStopButton.setText("START");
+            mStartStopButton.setTextColor(Color.GREEN);
+            mHourView.setTextColor(Color.RED);
+            mMinuteView.setTextColor(Color.RED);
+            mSecondView.setTextColor(Color.RED);
+            mMilliView.setTextColor(Color.RED);
+            mStartStopButton.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_play, 0, 0, 0);
+            mResetButton.setVisibility(View.VISIBLE);
+            stopWatch.stop();
+        }
+        customCanvas.animation();
+    }
+
+    public void resetStopwatch(View v){
+        Intent intent = new Intent(getApplicationContext(), ResetActivity.class);
+        startActivityForResult(intent, 1001);
+    }
 }

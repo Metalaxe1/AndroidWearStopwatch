@@ -35,11 +35,12 @@
 
     <Button
         android:id="@+id/start_stop_button"
-        android:layout_width="120sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:text="@string/start"
         android:drawableLeft="@android:drawable/ic_media_play"
+        android:onClick="toggleStartStop"
         android:textColor="#00FF00"
         android:textSize="24sp"
         android:layout_below="@+id/text"
@@ -52,6 +53,7 @@
         android:layout_height="20sp"
         android:layout_below="@+id/stopwatch_display"
         android:layout_centerHorizontal="true"
+        android:onClick="resetStopwatch"
         android:background="?android:attr/selectableItemBackground"
         android:drawableLeft="@android:drawable/ic_menu_revert"
         android:text="@string/reset"
