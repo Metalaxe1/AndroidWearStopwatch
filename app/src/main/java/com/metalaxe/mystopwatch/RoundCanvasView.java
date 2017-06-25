@@ -11,7 +11,7 @@ import android.view.View;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class CanvasView extends View {
+public class RoundCanvasView extends View {
 
     private double radius = 8;
     private double currentDegrees, trailingDegrees;
@@ -22,7 +22,7 @@ public class CanvasView extends View {
     private StopWatch stopWatch;
     private int spinnerColor, borderColor;
 
-    public CanvasView(Context c, AttributeSet attrs) {
+    public RoundCanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
         handler = new Handler();
         stopWatch = null;
