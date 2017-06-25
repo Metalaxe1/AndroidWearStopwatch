@@ -7,7 +7,7 @@
     tools:context="com.metalaxe.mystopwatch.MainActivity"
     tools:deviceIds="wear_round">
 
-    <com.metalaxe.mystopwatch.CanvasView
+    <com.metalaxe.mystopwatch.RoundCanvasView
         android:id="@+id/signature_canvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
