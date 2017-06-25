@@ -35,7 +35,7 @@
             app:circle_border_color="#FF0000"
             app:circle_border_width="12dp"
             app:circle_color="#FFFFFF"
-            app:circle_radius="64dp" />
+            app:circle_radius="48dp" />
     </LinearLayout>
 
 </android.support.wearable.view.BoxInsetLayout>
