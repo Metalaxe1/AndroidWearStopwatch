@@ -21,6 +21,7 @@ public class RoundCanvasView extends View {
     private boolean firstStart;
     private StopWatch stopWatch;
     private int spinnerColor, borderColor;
+    private boolean showOuterCircle, showSpinner;
 
     public RoundCanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
@@ -31,6 +32,8 @@ public class RoundCanvasView extends View {
         borderColor = Color.WHITE;
         running = new AtomicBoolean(false);
         firstStart = true;
+        showOuterCircle = true;
+        showSpinner = true;
         invalidate();
     }
 
@@ -66,38 +69,40 @@ public class RoundCanvasView extends View {
             centerY = clip.centerY();
             firstStart = false;
         }
-        // Create and draw the outer circle.
-        Paint outer_circle = new Paint();
-        outer_circle.setAntiAlias(true);
-        outer_circle.setColor(borderColor);
-        outer_circle.setStyle(Paint.Style.STROKE);
-        outer_circle.setStrokeJoin(Paint.Join.ROUND);
-        outer_circle.setStrokeWidth(12f);
-        canvas.drawCircle((int) (centerX), (int) (centerY), (float) centerX - 8, outer_circle);
-
-        // Create and draw the spinner back fill.
-        if (running.get()) {
-            trailingDegrees = currentDegrees - 30;
-            spinnerColor = Color.GREEN;
-        }
-        else {
-            trailingDegrees = currentDegrees;
-            spinnerColor = Color.RED;
-        }
-        Paint spinner_fill = new Paint();
-        spinner_fill.setAntiAlias(true);
-        spinner_fill.setColor(spinnerColor);
-        spinner_fill.setStyle(Paint.Style.FILL);
-        spinner_fill.setStrokeJoin(Paint.Join.ROUND);
-
-        while (trailingDegrees <= currentDegrees) {
-            double radians = (Math.toRadians(trailingDegrees));
-            double xFill = ((centerX - 8) * Math.cos(radians) + centerX);
-            double yFill = ((centerX - 8) * Math.sin(radians) + centerY);
-            canvas.drawCircle((float) xFill, (float) yFill, (float) radius, spinner_fill);
-            trailingDegrees++;
+        if (showOuterCircle) {
+            // Create and draw the outer circle.
+            Paint outer_circle = new Paint();
+            outer_circle.setAntiAlias(true);
+            outer_circle.setColor(borderColor);
+            outer_circle.setStyle(Paint.Style.STROKE);
+            outer_circle.setStrokeJoin(Paint.Join.ROUND);
+            outer_circle.setStrokeWidth(12f);
+            canvas.drawCircle((int) (centerX), (int) (centerY), (float) centerX - 8, outer_circle);
         }
 
+        if (showSpinner) {
+            // Create and draw the spinner back fill.
+            if (running.get()) {
+                trailingDegrees = currentDegrees - 30;
+                spinnerColor = Color.GREEN;
+            } else {
+                trailingDegrees = currentDegrees;
+                spinnerColor = Color.RED;
+            }
+            Paint spinner_fill = new Paint();
+            spinner_fill.setAntiAlias(true);
+            spinner_fill.setColor(spinnerColor);
+            spinner_fill.setStyle(Paint.Style.FILL);
+            spinner_fill.setStrokeJoin(Paint.Join.ROUND);
+
+            while (trailingDegrees <= currentDegrees) {
+                double radians = (Math.toRadians(trailingDegrees));
+                double xFill = ((centerX - 8) * Math.cos(radians) + centerX);
+                double yFill = ((centerX - 8) * Math.sin(radians) + centerY);
+                canvas.drawCircle((float) xFill, (float) yFill, (float) radius, spinner_fill);
+                trailingDegrees++;
+            }
+        }
         // If the stopwatch is running, then continue to redraw with updates.
         if (running.get()) {
             handler.post(r);
@@ -120,17 +125,13 @@ public class RoundCanvasView extends View {
         invalidate();
     }
 
-    public void setSpinnerColor(int color) {
-        spinnerColor = color;
+    public void showSpinner(boolean show) {
+        showSpinner = show;
         invalidate();
     }
 
     public void showBorderCircle(boolean show) {
-        if (show) {
-            borderColor = Color.WHITE;
-        } else {
-            borderColor = Color.BLACK;
-        }
+        showOuterCircle = show;
         invalidate();
     }
 
