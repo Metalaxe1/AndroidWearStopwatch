@@ -27,6 +27,7 @@ public class MainActivity extends WearableActivity {
     private Clock clock;
     private View backgroundView;
     private RoundCanvasView roundCanvas;
+    private SquareCanvasView squareCanvas;
     private boolean isRound;
     private double pressedX, pressedY;
 
@@ -62,10 +63,18 @@ public class MainActivity extends WearableActivity {
                 if (event.getAction() == MotionEvent.ACTION_UP && event.getY() < v.getHeight()*.5) {
                     if (Math.abs(event.getX() - pressedX) <= 2.0 && Math.abs(event.getY() - pressedY) <= 2.0) {
                         mStartStopButton.performClick();
+                        mStartStopButton.setPressed(true);
+                        mStartStopButton.invalidate();
+                        mStartStopButton.setPressed(false);
+                        mStartStopButton.invalidate();
                     }
                 } else if (mResetButton.getVisibility() == View.VISIBLE && event.getAction() == MotionEvent.ACTION_UP && event.getY() > v.getHeight()*.5){
                     if (Math.abs(event.getX() - pressedX) <= 2.0 && Math.abs(event.getY() - pressedY) <= 2.0) {
                         mResetButton.performClick();
+                        mResetButton.setPressed(true);
+                        mResetButton.invalidate();
+                        mResetButton.setPressed(false);
+                        mResetButton.invalidate();
                     }
                 }
                 return false;
@@ -79,6 +88,9 @@ public class MainActivity extends WearableActivity {
         if (isRound) {
             roundCanvas = (RoundCanvasView) findViewById(R.id.signature_canvas);
             roundCanvas.setStopWatch(this.stopWatch);
+        } else {
+            squareCanvas = (SquareCanvasView) findViewById(R.id.signature_canvas);
+            squareCanvas.setStopWatch(this.stopWatch);
         }
         mResetButton.setVisibility(View.GONE);
     }
@@ -95,8 +107,11 @@ public class MainActivity extends WearableActivity {
         mAppName.setTextColor(Color.WHITE);
         mTime.setTextColor(Color.WHITE);
         if (isRound) {
-            roundCanvas.setSpinnerColor(Color.WHITE);
+            roundCanvas.showSpinner(false);
             roundCanvas.showBorderCircle(false);
+        } else {
+            squareCanvas.showSpinner(false);
+            squareCanvas.showBorderSquare(false);
         }
     }
 
@@ -106,8 +121,11 @@ public class MainActivity extends WearableActivity {
         mAppName.setTextColor(Color.YELLOW);
         mStartStopButton.setVisibility(View.VISIBLE);
         if (isRound) {
-            roundCanvas.setSpinnerColor(Color.RED);
+            roundCanvas.showSpinner(true);
             roundCanvas.showBorderCircle(true);
+        } else {
+            squareCanvas.showSpinner(true);
+            squareCanvas.showBorderSquare(true);
         }
         if (stopWatch.isRunning()){
             mHourView.setTextColor(Color.GREEN);
@@ -130,7 +148,11 @@ public class MainActivity extends WearableActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1001 && resultCode == RESULT_OK){
             stopWatch.reset();
-            if (isRound) roundCanvas.resetSpinner();
+            if (isRound) {
+                roundCanvas.resetSpinner();
+            } else {
+                squareCanvas.resetSpinner();
+            }
             mResetButton.setVisibility(View.GONE);
         }
     }
@@ -163,6 +185,7 @@ public class MainActivity extends WearableActivity {
             stopWatch.stop();
         }
         if (isRound) roundCanvas.animation();
+        else squareCanvas.animation();
     }
 
     public void resetStopwatch(View v){
