@@ -3,13 +3,10 @@ package com.metalaxe.mystopwatch;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.support.wearable.activity.WearableActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -24,8 +21,6 @@ public class MainActivity extends WearableActivity {
     private Button mStartStopButton;
     private Button mResetButton;
     private StopWatch stopWatch;
-    private Clock clock;
-    private View backgroundView;
     private RoundCanvasView roundCanvas;
     private SquareCanvasView squareCanvas;
     private boolean isRound;
@@ -52,7 +47,7 @@ public class MainActivity extends WearableActivity {
         mMilliView = (TextView) findViewById(R.id.stopwatch_display_millis);
         mStartStopButton = (Button) findViewById(R.id.start_stop_button);
         mResetButton = (Button) findViewById(R.id.reset_button);
-        backgroundView = (View) this.findViewById(android.R.id.content);
+        View backgroundView = this.findViewById(android.R.id.content);
         backgroundView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -83,7 +78,7 @@ public class MainActivity extends WearableActivity {
         });
         mStartStopButton = (Button) findViewById(R.id.start_stop_button);
         mResetButton = (Button) findViewById(R.id.reset_button);
-        this.clock = new Clock(mTime);
+        new Clock(mTime);
         this.stopWatch = new StopWatch(mHourView, mMinuteView, mSecondView, mMilliView);
         if (isRound) {
             roundCanvas = (RoundCanvasView) findViewById(R.id.signature_canvas);
@@ -164,7 +159,7 @@ public class MainActivity extends WearableActivity {
             mMinuteView.setTextColor(Color.GREEN);
             mSecondView.setTextColor(Color.GREEN);
             mMilliView.setTextColor(Color.GREEN);
-            mStartStopButton.setText("STOP ");
+            mStartStopButton.setText(R.string.stop_button_text);
 
             mStartStopButton.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_pause, 0, 0, 0);
             mResetButton.setVisibility(View.GONE);
@@ -174,7 +169,7 @@ public class MainActivity extends WearableActivity {
                 stopWatch.resume();
             }
         } else {
-            mStartStopButton.setText("START");
+            mStartStopButton.setText(R.string.start_button_text);
             mStartStopButton.setTextColor(Color.GREEN);
             mHourView.setTextColor(Color.RED);
             mMinuteView.setTextColor(Color.RED);

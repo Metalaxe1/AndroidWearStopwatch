@@ -89,12 +89,12 @@ public class StopWatch{
         this.timer = 0;
         this.offset = 0;
         this.started = false;
-        hourDisplay.setText("00:");
+        hourDisplay.setText(R.string.zero_display_hours);
         hourDisplay.setVisibility(View.GONE);
-        minuteDisplay.setText("00:");
+        minuteDisplay.setText(R.string.zero_display_minutes);
         minuteDisplay.setVisibility(View.GONE);
-        secondDisplay.setText("00.");
-        milliDisplay.setText("00");
+        secondDisplay.setText(R.string.zero_display_seconds);
+        milliDisplay.setText(R.string.zero_display_millis);
         return true;
     }
 

@@ -10,14 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.activity.ConfirmationActivity;
 import android.support.wearable.activity.WearableActivity;
-import android.support.wearable.view.BoxInsetLayout;
 import android.support.wearable.view.DelayedConfirmationView;
 import android.view.View;
-import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class ResetActivity extends WearableActivity implements DelayedConfirmationView.DelayedConfirmationListener {
     DelayedConfirmationView delayedConfirmationView;
@@ -44,7 +38,6 @@ public class ResetActivity extends WearableActivity implements DelayedConfirmati
     public void onTimerSelected(View view) {
         displayConfirmation("Cancelled Reset", this);
         delayedConfirmationView.reset();
-        Intent returnIntent = new Intent();
         setResult(Activity.RESULT_CANCELED);
         finish();
     }
