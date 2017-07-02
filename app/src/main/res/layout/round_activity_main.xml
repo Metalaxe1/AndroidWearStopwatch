@@ -71,11 +71,8 @@
             android:id="@+id/stopwatch_display_hours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
             android:visibility="gone"
-            android:text="00:"
+            android:text="@string/start_hour"
             android:textColor="#FF0000"
             android:textSize="45sp" />
 
@@ -83,12 +80,8 @@
             android:id="@+id/stopwatch_display_minutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/stopwatch_display_hours"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
             android:visibility="gone"
-            android:text="00:"
+            android:text="@string/start_minutes"
             android:textColor="#FF0000"
             android:textSize="45sp" />
 
@@ -96,21 +89,15 @@
             android:id="@+id/stopwatch_display_seconds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/stopwatch_display_minutes"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
-            android:text="00."
+            android:text="@string/start_seconds"
             android:textColor="#FF0000"
             android:textSize="45sp" />
         <TextView
             android:id="@+id/stopwatch_display_millis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/stopwatch_display_seconds"
-            android:layout_alignBottom="@+id/stopwatch_display_seconds"
             android:paddingBottom="6dp"
-            android:text="00"
+            android:text="@string/start_millis"
             android:textColor="#FF0000"
             android:textSize="24sp" />
     </LinearLayout>
