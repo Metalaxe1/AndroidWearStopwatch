@@ -8,8 +8,11 @@ import android.graphics.Rect;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
-
 import java.util.concurrent.atomic.AtomicBoolean;
+
+/**
+ * Created by Anthony Ratliff on 6/24/2017.
+ */
 
 public class RoundCanvasView extends View {
 
@@ -22,6 +25,7 @@ public class RoundCanvasView extends View {
     private StopWatch stopWatch;
     private int spinnerColor, borderColor;
     private boolean showOuterCircle, showSpinner;
+    private Paint outer_circle, spinner_fill;
 
     public RoundCanvasView(Context c, AttributeSet attrs) {
         super(c, attrs);
@@ -30,6 +34,8 @@ public class RoundCanvasView extends View {
         currentDegrees = -90;
         spinnerColor = Color.GREEN;
         borderColor = Color.WHITE;
+        spinner_fill = new Paint();
+        outer_circle = new Paint();
         running = new AtomicBoolean(false);
         firstStart = true;
         showOuterCircle = true;
@@ -54,7 +60,6 @@ public class RoundCanvasView extends View {
     @Override
 
     protected void onDraw(Canvas canvas) {
-
         super.onDraw(canvas);
         if (firstStart) {
             // Get the size of the face area.
@@ -71,13 +76,12 @@ public class RoundCanvasView extends View {
         }
         if (showOuterCircle) {
             // Create and draw the outer circle.
-            Paint outer_circle = new Paint();
             outer_circle.setAntiAlias(true);
             outer_circle.setColor(borderColor);
             outer_circle.setStyle(Paint.Style.STROKE);
             outer_circle.setStrokeJoin(Paint.Join.ROUND);
             outer_circle.setStrokeWidth(12f);
-            canvas.drawCircle((int) (centerX), (int) (centerY), (float) centerX - 8, outer_circle);
+            canvas.drawCircle(centerX, centerY, (float) (centerX - radius), outer_circle);
         }
 
         if (showSpinner) {
@@ -89,18 +93,17 @@ public class RoundCanvasView extends View {
                 trailingDegrees = currentDegrees;
                 spinnerColor = Color.RED;
             }
-            Paint spinner_fill = new Paint();
             spinner_fill.setAntiAlias(true);
             spinner_fill.setColor(spinnerColor);
             spinner_fill.setStyle(Paint.Style.FILL);
             spinner_fill.setStrokeJoin(Paint.Join.ROUND);
 
-            while (trailingDegrees <= currentDegrees) {
-                double radians = (Math.toRadians(trailingDegrees));
-                double xFill = ((centerX - 8) * Math.cos(radians) + centerX);
-                double yFill = ((centerX - 8) * Math.sin(radians) + centerY);
+            while (currentDegrees >= trailingDegrees) {
+                double radians = (Math.toRadians(currentDegrees));
+                double xFill = ((centerX - radius) * Math.cos(radians) + centerX);
+                double yFill = ((centerX - radius) * Math.sin(radians) + centerY);
                 canvas.drawCircle((float) xFill, (float) yFill, (float) radius, spinner_fill);
-                trailingDegrees++;
+                currentDegrees--;
             }
         }
         // If the stopwatch is running, then continue to redraw with updates.

@@ -8,7 +8,6 @@ import android.graphics.Rect;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
-
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -17,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SquareCanvasView extends View {
 
-    private double radius = 8;
+    private final double radius = 8;
     private double currentDegrees, trailingDegrees;
     private int centerX, centerY;
     private int width, height;
@@ -27,6 +26,7 @@ public class SquareCanvasView extends View {
     private StopWatch stopWatch;
     private int spinnerColor, borderColor;
     private boolean showOuterSquare, showSpinner;
+    private Paint outer_square, spinner_fill;
 
 
     public SquareCanvasView(Context c, AttributeSet attrs){
@@ -35,6 +35,8 @@ public class SquareCanvasView extends View {
         stopWatch = null;
         spinnerColor = Color.GREEN;
         borderColor = Color.WHITE;
+        outer_square = new Paint();
+        spinner_fill = new Paint();
         running = new AtomicBoolean(false);
         currentDegrees = -29.0;
         trailingDegrees = 0.0;
@@ -42,7 +44,6 @@ public class SquareCanvasView extends View {
         showSpinner = true;
         firstStart = true;
         invalidate();
-        System.out.println("current Position");
     }
 
     private Runnable r = new Runnable() {
@@ -51,12 +52,7 @@ public class SquareCanvasView extends View {
 
         public void run() {
             long i = ((stopWatch.getTimerMilliseconds() % 1000));
-            double constant = (double) (((2*width) + (2*height)) / 1000.0);
-            //currentPosition = ((double) i * constant) + (width/2.0);
-            //double degrees = (i*constant) %360;
-            //double degrees = ((double) i * constant) - 90;
             currentDegrees = ((double) i * .232) - 29;
-            //currentDegrees = (currentDegrees +1)%230;
             System.out.println(currentDegrees);
             invalidate();
         }
@@ -68,12 +64,11 @@ public class SquareCanvasView extends View {
     protected void onDraw(Canvas canvas) {
 
         super.onDraw(canvas);
-        Rect clip = canvas.getClipBounds();
         if (firstStart) {
             // Get the size of the face area.
+            Rect clip = canvas.getClipBounds();
             width = clip.width();
             height = clip.height();
-            //currentPosition = width/2;
             // Create paint object to set background color of canvas.
             Paint rect_paint = new Paint();
             rect_paint.setStyle(Paint.Style.FILL);
@@ -87,7 +82,6 @@ public class SquareCanvasView extends View {
         }
         if (showOuterSquare) {
             // Create and draw the outer circle.
-            Paint outer_square = new Paint();
             outer_square.setAntiAlias(true);
             outer_square.setColor(borderColor);
             outer_square.setStyle(Paint.Style.STROKE);
@@ -104,23 +98,17 @@ public class SquareCanvasView extends View {
                 trailingDegrees = currentDegrees;
                 spinnerColor = Color.RED;
             }
-            Paint spinner_fill = new Paint();
             spinner_fill.setAntiAlias(true);
             spinner_fill.setColor(spinnerColor);
             spinner_fill.setStyle(Paint.Style.FILL);
             spinner_fill.setStrokeJoin(Paint.Join.ROUND);
 
-                //canvas.drawCircle((float) radius, (float) radius, (float) radius, spinner_fill);
-            float startX = 0f;
-            float startY = 0f;
-            float fillX = 16f;
-            float fillY = 16f;
-            while (trailingDegrees <= currentDegrees) {
-                double radians = (Math.toRadians(trailingDegrees));
-                startX = (float) (((centerX - 8)) *((Math.cos((Math.PI/2)*Math.floor(radians))) - ((2*radians - 2*Math.floor(radians) - 1)*Math.sin((Math.PI/2)*Math.floor(radians)))) + (centerX - 8));
-                startY = (float) (((centerY - 8)) *((Math.sin((Math.PI/2)*Math.floor(radians))) + ((2*radians - 2*Math.floor(radians) - 1)*Math.cos((Math.PI/2)*Math.floor(radians)))) + (centerY) - 8);
+            while (currentDegrees >= trailingDegrees) {
+                double radians = (Math.toRadians(currentDegrees));
+                float startX = (float) (((centerX - radius)) *((Math.cos((Math.PI/2)*Math.floor(radians))) - ((2*radians - 2*Math.floor(radians) - 1)*Math.sin((Math.PI/2)*Math.floor(radians)))) + (centerX - radius));
+                float startY = (float) (((centerY - radius)) *((Math.sin((Math.PI/2)*Math.floor(radians))) + ((2*radians - 2*Math.floor(radians) - 1)*Math.cos((Math.PI/2)*Math.floor(radians)))) + (centerY) - radius);
                 canvas.drawRect(startX, startY, startX + 16f, startY + 16f, spinner_fill);
-                trailingDegrees++;
+                currentDegrees--;
             }
             }
         // If the stopwatch is running, then continue to redraw with updates.
@@ -141,7 +129,6 @@ public class SquareCanvasView extends View {
 
     public void resetSpinner() {
         this.firstStart = true;
-        //currentPosition = width/2.0;
         currentDegrees = -29.0;
         invalidate();
     }
