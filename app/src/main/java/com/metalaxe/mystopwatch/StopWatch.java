@@ -38,8 +38,11 @@ public class StopWatch{
                 int hours = (int)((timer/1000)/3600);
                 if (hours == 0) {
                     hourDisplay.setVisibility(View.GONE);
-                } else hourDisplay.setVisibility(View.VISIBLE);
-                if (mins == 0) {
+                } else {
+                    hourDisplay.setVisibility(View.VISIBLE);
+                    minuteDisplay.setVisibility(View.VISIBLE);
+                }
+                if (mins == 0 && hours == 0) {
                     minuteDisplay.setVisibility(View.GONE);
                 } else minuteDisplay.setVisibility(View.VISIBLE);
                 hourDisplay.setText(String.format("%1$02d:", hours));
