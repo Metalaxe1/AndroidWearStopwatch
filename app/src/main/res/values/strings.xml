@@ -14,4 +14,8 @@
     <string name="zero_display_minuits">:00</string>
     <string name="zero_display_seconds">:00.</string>
     <string name="zero_display_millis">.00</string>
+    <string name="start_hour">00:</string>
+    <string name="start_minutes">00:</string>
+    <string name="start_seconds">00.</string>
+    <string name="start_millis">00</string>
 </resources>
