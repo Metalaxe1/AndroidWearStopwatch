@@ -53,7 +53,6 @@ public class SquareCanvasView extends View {
         public void run() {
             long i = ((stopWatch.getTimerMilliseconds() % 1000));
             currentDegrees = ((double) i * .232) - 29;
-            System.out.println(currentDegrees);
             invalidate();
         }
 
