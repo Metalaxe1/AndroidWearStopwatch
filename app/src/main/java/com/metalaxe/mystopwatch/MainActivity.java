@@ -30,16 +30,13 @@ public class MainActivity extends WearableActivity {
     private SquareCanvasView squareCanvas;
     private boolean isRound;
     private double pressedX, pressedY;
-    private ViewPager viewPager;
-    private CustomSwipeAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        adapter = new CustomSwipeAdapter(this);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        CustomSwipeAdapter adapter = new CustomSwipeAdapter(this);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);
         Configuration config = getResources().getConfiguration();
@@ -156,7 +153,7 @@ public class MainActivity extends WearableActivity {
         private Context context;
         private LayoutInflater layoutInflater;
 
-        public CustomSwipeAdapter(Context ctx){
+        private CustomSwipeAdapter(Context ctx){
             context = ctx;
         }
         @Override
@@ -175,18 +172,15 @@ public class MainActivity extends WearableActivity {
             switch (position){
                 case 0: {
                     View item_view = layoutInflater.inflate(R.layout.round_about_layout, container, false);
-
                     container.addView(item_view);
                     return item_view;
                 }
                 case 1: {
-                    View item_view = null;
+                    View item_view;
                     if (isRound) {
                         item_view = layoutInflater.inflate(R.layout.round_activity_main, container, false);
-                        //setContentView(R.layout.round_activity_main);
                     } else {
                         item_view = layoutInflater.inflate(R.layout.rect_activity_main, container, false);
-                        //setContentView(R.layout.rect_activity_main);
                     }
 
                     mAppName = (TextView) item_view.findViewById(R.id.text);
