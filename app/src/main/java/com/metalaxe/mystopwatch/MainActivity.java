@@ -30,15 +30,34 @@ public class MainActivity extends WearableActivity {
     private SquareCanvasView squareCanvas;
     private boolean isRound;
     private double pressedX, pressedY;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.pager);
         CustomSwipeAdapter adapter = new CustomSwipeAdapter(this);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0){
+                    closeApplication();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         Configuration config = getResources().getConfiguration();
         isRound = config.isScreenRound();
         setAmbientEnabled();
@@ -106,6 +125,10 @@ public class MainActivity extends WearableActivity {
                 squareCanvas.resetSpinner();
             }
             mResetButton.setVisibility(View.GONE);
+        } else if (requestCode == 1002 && resultCode == RESULT_OK){
+            finishAffinity();
+        }  else if (requestCode == 1002 && resultCode == RESULT_CANCELED){
+            viewPager.setCurrentItem(1);
         }
     }
 
@@ -141,11 +164,20 @@ public class MainActivity extends WearableActivity {
     }
 
     public void resetStopwatch(View v){
-        Intent intent = new Intent(getApplicationContext(), ResetActivity.class);
+        Intent intent = new Intent(getApplicationContext(), DelayedConfirmationActivity.class);
+        intent.putExtra("TITLE_MESSAGE", "Resetting Stopwatch");
+        intent.putExtra("SUCCESS_MESSAGE", "Stopwatch Reset");
+        intent.putExtra("CANCEL_MESSAGE", "Cancelled Reset");
         startActivityForResult(intent, 1001);
     }
 
-
+    public void closeApplication(){
+        Intent intent = new Intent(getApplicationContext(), DelayedConfirmationActivity.class);
+        intent.putExtra("TITLE_MESSAGE", "Application Closing");
+        intent.putExtra("SUCCESS_MESSAGE", "Goodbye");
+        intent.putExtra("CANCEL_MESSAGE", "Cancelled closing");
+        startActivityForResult(intent, 1002);
+    }
 
 
 
@@ -158,7 +190,7 @@ public class MainActivity extends WearableActivity {
         }
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -171,7 +203,7 @@ public class MainActivity extends WearableActivity {
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             switch (position){
                 case 0: {
-                    View item_view = layoutInflater.inflate(R.layout.round_about_layout, container, false);
+                    View item_view = layoutInflater.inflate(R.layout.activity_delayed_confirmation, container, false);
                     container.addView(item_view);
                     return item_view;
                 }
@@ -231,6 +263,11 @@ public class MainActivity extends WearableActivity {
 
                     });
                     mResetButton.setVisibility(View.GONE);
+                    container.addView(item_view);
+                    return item_view;
+                }
+                case 2: {
+                    View item_view = layoutInflater.inflate(R.layout.activity_about, container, false);
                     container.addView(item_view);
                     return item_view;
                 }

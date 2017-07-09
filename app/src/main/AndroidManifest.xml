@@ -13,7 +13,8 @@
         <uses-library android:name="com.google.android.wearable" android:required="false" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/Theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +24,7 @@
 
         <activity android:name="android.support.wearable.activity.ConfirmationActivity" />
         <activity
-            android:name=".ResetActivity"
+            android:name=".DelayedConfirmationActivity"
             android:label="@string/title_activity_reset"
             android:theme="@android:style/Theme.DeviceDefault.Light">
         </activity>
