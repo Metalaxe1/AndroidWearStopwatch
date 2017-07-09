@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_box="all">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5sp"
+            android:background="@drawable/background_border">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/about_title"
+            android:gravity="center"
+            android:text="Chrono-Droid v1.00"
+            android:textStyle="bold"
+            android:textColor="#FFF200" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/about_title">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:paddingTop="5sp"
+                android:text="Chrono-Droid is designed to add more functionality than the OEM Stopwatch application.  This app runs on Android Wearable OS 2.0 and higher.  This stopwatch provides precision in the centi-seconds which can been seen as a spinner bordering the watch face.  There are also swipe confirmations which allow the user to cancel any accidental swipe.  \nThank you for your interest in this software.  \n\nAnthony R. Ratliff \nMetalsoft Solutions"
+
+                />
+
+        </ScrollView>
+        </RelativeLayout>
+
+    </FrameLayout>
+
+
+</android.support.wearable.view.BoxInsetLayout>
